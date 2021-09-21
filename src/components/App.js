@@ -1,10 +1,10 @@
 import './App.css';
-import List from "./components/List/List";
+import Router from "./Router/Router";
 
 function App() {
   return (
     <div className="App">
-        <List/>
+      <Router/>
     </div>
   );
 }

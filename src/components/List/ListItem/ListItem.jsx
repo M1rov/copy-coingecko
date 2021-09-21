@@ -4,7 +4,7 @@ import './ListItem.css'
 const ListItem = ({name, price, img}) => {
     return (
         <div className={'ListItem'}>
-            <img src={img} width='50px'/>
+            <img src={img} alt={name} width='50px'/>
             Name - {name} - {price}$
         </div>
     );
