@@ -4,14 +4,17 @@ import ListItem from "./ListItem/ListItem";
 import FetchData from "../../actions";
 import PageList from "./PageList";
 import Input from "../UI/Input";
+import sortData from "../../service/service.sorting";
 
 const List = (props) => {
     const [list, setList] = useState(null)
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(34)
     const [changePage, setChangePage] = useState(false)
+    //const [sortList, setSortList] = useState('price');
     async function fetchList () {
         const data = await FetchData.fetchCurrency( props.match.params.id || 1 ,pageSize)
+        sortData('current_price', data)
         const newList = data.map((el, index) => {
             return <ListItem name={el.name} key={index} price={el.current_price} img={el.image}/>
         })
@@ -26,7 +29,8 @@ const List = (props) => {
         }
         setPage(...[massive])
         // eslint-disable-next-line
-        fetchList()},[props.match.params.id,changePage])
+        fetchList()
+    },[props.match.params.id,changePage])
 
     return (
         <div className={'List'}>
