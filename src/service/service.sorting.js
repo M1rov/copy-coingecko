@@ -1,6 +1,7 @@
 
 const sortData = (field, list) => {
-    list.sort((a, b) => b.props[field] - a.props[field]);
+    list.sort((a, b) => b[field] - a[field]);
+    console.log(list)
 }
 
 export default sortData
