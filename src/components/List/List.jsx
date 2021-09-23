@@ -11,15 +11,20 @@ const List = (props) => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(34)
     const [changePage, setChangePage] = useState(false)
-    //const [sortList, setSortList] = useState('price');
+    const [sortList, setSortList] = useState(null);
+    const [sortMethod, setSortMethod] = useState(false);
     async function fetchList () {
-        const data = await FetchData.fetchCurrency( props.match.params.id || 1 ,pageSize)
-        sortData('current_price', data)
+        const data = await FetchData.fetchCurrencyList( props.match.params.id || 1 ,pageSize)
+        sortData(sortList, data, sortMethod)
         const newList = data.map((el, index) => {
-            return <ListItem name={el.name} key={index} price={el.current_price} img={el.image}/>
+            return <ListItem key={el.id} coin={el}/>
         })
         setList(newList)
     }
+
+    useEffect(() => {
+
+    }, [])
 
     useEffect(() => {
         const pageCount = Math.ceil(250/pageSize)
