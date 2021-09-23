@@ -38,20 +38,44 @@ const List = (props) => {
     },[props.match.params.id,changePage])
 
     return (
-        <div className={'list'}>
-            <div className="list-pagelist">
-                <Input type={'text'} placeholder={'Min count 10'} value={pageSize} setValue={setPageSize}/>
-                <button onClick={() => {
-                    if (Number(pageSize) < 10){
-                        alert('Error size Min Size 10')
-                    }else{
-                        setChangePage(!changePage)
-                    }
-                }}>Change</button>
-                {page}
-            </div>
-            <div className="list-items">
-                {list}
+        <div className={'wrapper'}>
+            <header className="header">
+                <div className="container">
+                    <nav className="nav">
+                        <div className="header__pages">
+                            {page}
+                        </div>
+                        <div className='header__input'>
+                            <Input type={'text'} placeholder={'Min: 10'} value={pageSize} setValue={setPageSize}/>
+                            <button className={'header__button'} onClick={() => {
+                                if (Number(pageSize) < 10){
+                                    alert('Error size Min Size 10')
+                                }else{
+                                    setChangePage(!changePage)
+                                }
+                            }}>Change</button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <div className="list">
+                <div className="container">
+                    <div className="list__header">
+                        <div className="list__coin">
+                            Coin
+                        </div>
+                        <div className="list__price">
+                            Price
+                        </div>
+                        <div className="list__volume">
+                            24h volume
+                        </div>
+                        <div className="list__percent">
+                            24h
+                        </div>
+                    </div>
+                    {list}
+                </div>
             </div>
         </div>
     );
