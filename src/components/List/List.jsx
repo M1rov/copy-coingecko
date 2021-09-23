@@ -38,17 +38,21 @@ const List = (props) => {
     },[props.match.params.id,changePage])
 
     return (
-        <div className={'List'}>
-            <Input type={'text'} placeholder={'Min count 10'} value={pageSize} setValue={setPageSize}/>
-            <button onClick={() => {
-                if (Number(pageSize) < 10){
-                    alert('Error size Min Size 10')
-                }else{
-                    setChangePage(!changePage)
-                }
-            }}>Change</button>
-            {page}
-            {list}
+        <div className={'list'}>
+            <div className="list-pagelist">
+                <Input type={'text'} placeholder={'Min count 10'} value={pageSize} setValue={setPageSize}/>
+                <button onClick={() => {
+                    if (Number(pageSize) < 10){
+                        alert('Error size Min Size 10')
+                    }else{
+                        setChangePage(!changePage)
+                    }
+                }}>Change</button>
+                {page}
+            </div>
+            <div className="list-items">
+                {list}
+            </div>
         </div>
     );
 };

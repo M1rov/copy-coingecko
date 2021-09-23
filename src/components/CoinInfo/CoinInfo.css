@@ -1,0 +1,9 @@
+.coin-info {
+    width: 80%;
+    margin-top: 100px;
+    display: flex;
+}
+
+.coin-info span{
+    margin-right: 50px;
+}
