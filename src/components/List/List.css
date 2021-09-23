@@ -1,0 +1,9 @@
+.list-pagelist{
+    display: flex;
+    margin: 30px 0 50px 0;
+    justify-content: space-around;
+}
+
+.list-pagelist input {
+    border: 1px solid gray;
+}
