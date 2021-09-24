@@ -10,7 +10,7 @@ const List = (props) => {
     const [list, setList] = useState(null)
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(3)
-    const [isLoading,setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [changePage, setChangePage] = useState(false)
     const [sortType, setSortType] = useState('market_cap_rank');
     const [sortMethod, setSortMethod] = useState(true);
@@ -20,22 +20,24 @@ const List = (props) => {
     }
 
     useEffect(() => {
-        if(list){
+        if (list) {
             setList(sortData(sortType, list, sortMethod))
-        }else{
-            fetchList().then((data) => {
-                setList(data)
-                const pageCount = Math.ceil(250 / pageSize)
-                const massive = []
-                for (let i = 0; i < pageCount; i++) {
-                    massive.push(<PageList key={i} index={i + 1}/>)
-                }
-                setPage(...[massive])
-                setIsLoading(true)
-            })
         }
+    }, [sortMethod,sortType])
 
-    }, [props.match.params.id, changePage, sortMethod,sortType])
+    useEffect(() => {
+        console.log('UseFetch')
+        fetchList().then((data) => {
+            setList(data)
+            setIsLoading(true)
+        })
+        const pageCount = Math.ceil(250 / pageSize)
+        const massive = []
+        for (let i = 0; i < pageCount; i++) {
+            massive.push(<PageList key={i} index={i + 1}/>)
+        }
+        setPage(...[massive])
+    }, [props.match.params.id, changePage])
 
 
 
@@ -88,6 +90,7 @@ const List = (props) => {
                       </div>
                   </div>
                   {isLoading ? list.map((el) => {
+                      console.log('Here')
                       return <ListItem key={el.id} coin={el}/>
                   }): null}
               </div>
