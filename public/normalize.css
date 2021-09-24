@@ -24,7 +24,6 @@ nav, footer, header, aside {
 }
 
 html, body {
-    height: 100%;
     width: 100%;
     font-size: 100%;
     line-height: 1;
@@ -74,6 +73,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /*--------------------*/
 
-.App{
+body{
     font-family: 'Poppins', Arial, "Helvetica Neue", Helvetica, sans-serif;
+    min-height: 100vh;
+    background: #000000 linear-gradient(147deg, #000000 0%, #04619f 74%) no-repeat;
+    background-size: cover;
+    color: white;
 }
