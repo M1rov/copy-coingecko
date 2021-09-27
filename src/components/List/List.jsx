@@ -60,11 +60,12 @@ const List = (props) => {
                       <div className='header__input'>
                           <input type={'text'} placeholder={'Min: 10'} ref={InputValue}/>
                           <button className={'header__button'} onClick={() => {
-                              setIsLoading(false)
-                              setPageSize(InputValue.current.value)
-                              if (Number(InputValue.current.value) < 10) {
-                                  alert('Error size Min Size 10')
+                              console.log()
+                              if (10 <= Number(InputValue.current.value) <= 250) {
+                                  alert('Error size Min Size 10 / max size 250')
                               } else {
+                                  setIsLoading(false)
+                                  setPageSize(InputValue.current.value)
                                   setChangePage(!changePage)
                               }
                           }}>Change
