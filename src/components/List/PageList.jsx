@@ -4,11 +4,13 @@ import {Link, useParams} from "react-router-dom";
 const PageList = ({index,reset}) => {
   const {id} = useParams()
   return (
-    <span onClick={() => {
-      if (Number(id) !== index){
+    <Link to={`/${index}`}>
+      <span style={Number(id) === index ? {color: 'yellow'} : null} onClick={() => {
+      if (Number(id) !== index) {
         reset()
       }
-    }}><Link to={`/${index}`}>Page{index}</Link></span>
+    }}>Page{index}</span>
+    </Link>
   );
 };
 
