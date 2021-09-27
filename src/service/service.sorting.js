@@ -1,6 +1,10 @@
 
 const sortData = (field, list, method) => {
-    method ? list.sort((a, b) => a[field] - b[field]) : list.sort((a, b) => b[field] - a[field]);
+    if(method){
+        console.log('Here')
+        return list.sort((a, b) => a[field] - b[field])
+    }
+    return list.sort((a, b) => b[field] - a[field])
 }
 
 export default sortData

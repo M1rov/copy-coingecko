@@ -5,7 +5,9 @@ const Input = ({type, placeholder, value, setValue}) => {
     <input type={type}
            placeholder={placeholder}
            value={value}
-           onChange={(e) => setValue(e.target.value)}/>
+           onChange={(e) => {
+             setValue(e.target.value)
+           }}/>
   );
 };
 
