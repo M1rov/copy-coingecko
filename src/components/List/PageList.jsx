@@ -1,9 +1,14 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
-const PageList = ({index}) => {
+const PageList = ({index,reset}) => {
+  const {id} = useParams()
   return (
-    <Link to={`/${index}`}>Page{index}</Link>
+    <span onClick={() => {
+      if (Number(id) !== index){
+        reset()
+      }
+    }}><Link to={`/${index}`}>Page{index}</Link></span>
   );
 };
 
