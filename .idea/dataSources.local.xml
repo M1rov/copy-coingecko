@@ -3,6 +3,8 @@
   <component name="dataSourceStorageLocal" created-in="WS-212.5080.54">
     <data-source name="@localhost" uuid="1302ca5c-9260-4bb7-9b17-c865b15808b5">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
       <schema-mapping />
     </data-source>
   </component>
