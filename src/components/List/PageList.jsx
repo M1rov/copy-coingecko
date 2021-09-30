@@ -5,9 +5,9 @@ const PageList = ({index,reset}) => {
   const {id} = useParams()
   return (
     <Link to={`/${index}`}>
-      <span style={Number(id) === index ? {color: 'yellow'} : null} onClick={() => {
+      <span style={Number(id) === index || (!id && index === 1) ? {color: 'royalblue'} : null} onClick={() => {
       if (Number(id) !== index) {
-        reset()
+        reset(false)
       }
     }}>Page{index}</span>
     </Link>
