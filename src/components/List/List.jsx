@@ -22,20 +22,17 @@ const List = (props) => {
     }
 
     async function fetchList() {
-        console.log('Fetch list')
         return await FetchData.fetchCurrencyList(props.match.params.id || 1, pageSize)
     }
 
 
     useEffect(() => {
-        console.log('useEffect first')
         if (list) {
             setList(sortData(sortType, list, sortMethod))
         }
     }, [sortMethod])
 
     useEffect(() => {
-        console.log('useEffect Second')
         setIsLoading(false)
         fetchList().then((data) => {
             setList(data)
@@ -98,7 +95,6 @@ const List = (props) => {
                   </div>
               </div>
               {list.map((el) => {
-                  console.log('ListItem')
                   return <ListItem key={el.id} coin={el}/>
               })}
           </div>
