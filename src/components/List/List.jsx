@@ -3,6 +3,7 @@ import './List.css'
 import ListItem from "./ListItem/ListItem";
 import FetchData from "../../actions";
 import PageList from "./PageList";
+import Input from "../UI/Input";
 import sortData from "../../service/service.sorting";
 
 const List = (props) => {
@@ -16,10 +17,8 @@ const List = (props) => {
 
     const InputValue = useRef()
 
-    function sortFunc(type) {
+    function resetState() {
         setIsLoading(false)
-        setSortType(type)
-        setSortMethod(!sortMethod)
     }
 
     async function fetchList() {
@@ -30,7 +29,6 @@ const List = (props) => {
     useEffect(() => {
         if (list) {
             setList(sortData(sortType, list, sortMethod))
-            setIsLoading(true)
         }
     }, [sortMethod])
 
@@ -43,13 +41,13 @@ const List = (props) => {
         const pageCount = Math.ceil(250 / pageSize)
         const massive = []
         for (let i = 0; i < pageCount; i++) {
-            massive.push(<PageList reset={setIsLoading} key={i} index={i + 1}/>)
+            massive.push(<PageList reset={resetState} key={i} index={i + 1}/>)
         }
         setPage(...[massive])
     }, [props.match.params.id, changePage])
 
 
-    return(
+    return isLoading ?
       <div className={'wrapper'}>
           <header className="header">
               <div className="container">
@@ -60,12 +58,10 @@ const List = (props) => {
                       <div className='header__input'>
                           <input type={'text'} placeholder={'Min: 10'} ref={InputValue}/>
                           <button className={'header__button'} onClick={() => {
-                              console.log()
-                              if (10 <= Number(InputValue.current.value) <= 250) {
-                                  alert('Error size Min Size 10 / max size 250')
+                              setPageSize(InputValue.current.value)
+                              if (Number(pageSize) < 10) {
+                                  alert('Error size Min Size 10')
                               } else {
-                                  setIsLoading(false)
-                                  setPageSize(InputValue.current.value)
                                   setChangePage(!changePage)
                               }
                           }}>Change
@@ -79,21 +75,30 @@ const List = (props) => {
                   <div className="list__coin">
                       Coin
                   </div>
-                  <div className="list__price" onClick={() => sortFunc('current_price')}>
+                  <div className="list__price" onClick={() => {
+                      setSortType('current_price')
+                      setSortMethod(!sortMethod)
+                  }}>
                       Price
                   </div>
-                  <div className="list__volume" onClick={() => sortFunc('total_volume')}>
+                  <div className="list__volume" onClick={() => {
+                      setSortType('total_volume')
+                      setSortMethod(!sortMethod)
+                  }}>
                       24h volume
                   </div>
-                  <div className="list__percent" onClick={() => sortFunc('price_change_percentage_24h')}>
+                  <div className="list__percent" onClick={() => {
+                      setSortType('price_change_percentage_24h')
+                      setSortMethod(!sortMethod)
+                  }}>
                       24h
                   </div>
               </div>
-              {isLoading ? list.map((el) => {
+              {list.map((el) => {
                   return <ListItem key={el.id} coin={el}/>
-              }) : null}
+              })}
           </div>
-      </div>)
+      </div> : null
 };
 
 export default List;
