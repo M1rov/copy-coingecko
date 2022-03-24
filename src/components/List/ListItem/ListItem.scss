@@ -1,0 +1,62 @@
+.list-item {
+  font-size: 0.9em;
+  color: black;
+  border-bottom: 1px solid rgba(171, 171, 171, 0.87);
+
+  td {
+    padding: 7px 0;
+  }
+
+  &:hover {
+    background: rgba(128, 128, 128, 0.2);
+  }
+
+  & > * {
+    vertical-align: middle;
+  }
+
+  &__coin {
+    display: flex;
+    align-items: center;
+  }
+
+  &__coin-name a {
+    color: black;
+  }
+
+  &__img {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+
+    img {
+      width: 40px;
+    }
+  }
+
+  &__price {
+  }
+
+  &__percent {
+    color: red;
+  }
+
+  &__positive {
+    color: green;
+  }
+
+  .active {
+    background: rgba(128, 128, 128, 0.3);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

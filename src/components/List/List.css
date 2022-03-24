@@ -1,81 +1,137 @@
-.container{
-    max-width: 1150px;
+.wrapper {
+    width: 100%;
+}
+.container {
+    max-width: 1300px;
     padding: 0 20px;
     margin: 0 auto;
-    text-align: center;
 }
 
-.header{
+.header {
     padding: 30px 0 50px 0;
-    font-size: 17px;
 }
 
-.header .nav{
+.header .nav {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 
-
-.header__pages{
+.header__pages {
     flex: 1 1 auto;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    overflow: auto;
+    padding: 20px 0;
 }
 
+.header__pages::-webkit-scrollbar {
+    height: 0.7em;
+}
 
+.header__pages::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(15, 100, 237, 0.81);
+}
 
-.header__pages a{
+.header__pages::-webkit-scrollbar-thumb {
+    background-color: #1c2fa1;
+    outline: 1px solid #233cc1;
+}
+
+.header__pages a {
+    white-space: nowrap;
     text-decoration: none;
     color: black;
     margin: 0 10px;
 }
 
-.header__input{
+.header__input {
     position: relative;
 }
 
-.header__input input, .header__button{
+.header__input input, .header__button {
     font-size: inherit;
 }
 
-.header__input input{
+.header__input input {
     text-align: center;
-    padding: 5px 45px 5px 10px;
+    padding: 5px 90px 5px 10px;
     background: #ddd;
     width: 200px;
     border-radius: 5px;
 }
 
-.header__button{
+.header__button {
     position: absolute;
+    border-left: 1px solid #959595;
     top: 0;
-    right: 0;
-    border-radius: 5px;
+    font-size: 0.9em;
+    right: 5px;
     background: #dddd;
     padding: 5px 5px;
 }
 
-.list{
-    font-size: 20px;
-}
-
-.list__header{
-    position: relative;
+.list__header {
+    white-space: nowrap;
+    text-align: left;
     color: black;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: minmax(270px, 1fr);
-    grid-auto-columns: minmax( 150px ,1fr);
-    border-bottom: 3px solid #ccc;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-
+    border-bottom: 3px solid rgba(119, 119, 119, 0.6);
+    border-top: 2px solid rgba(119, 119, 119, 0.6);
 }
 
-.list__coin{
-    justify-self: start;
-    margin-left: 5px;
+.list__header th {
+    padding: 10px 0;
+}
+
+
+.list__header button {
+    text-align: left;
+    font-size: inherit;
+    transition: color ease .5s;
+    position: relative;
+}
+
+.list__header button:hover {
+    color: #393838;
+}
+
+.list__header button[data-sort="ascending"]::after,
+.list__header button[data-sort="descending"]::after {
+    position: absolute;
+    top: 2px;
+    font-size: 0.8em;
+    color: rgba(115, 115, 115, 0.67);
+    padding-left: 5px;
+}
+
+.list__header button[data-sort="ascending"]:hover::after,
+.list__header button[data-sort="descending"]:hover::after {
+    color: black;
+}
+
+.list__header button[data-sort="ascending"]::after {
+    content: "\25B2";
+}
+
+.list__header button[data-sort="descending"]::after {
+    content: "\25BC";
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table th {
+}
+
+.table th:not(:first-child), .table td:not(:first-child) {
+    text-align: right;
+    padding-left: 100px;
+    padding-right: 20px;
+}
+
+.table th:first-child, .table td:first-child {
+    padding-left: 10px;
 }
