@@ -17,4 +17,12 @@ export default class CurrencyService {
       throw err;
     }
   }
+
+  static getHistoricalMarketDataById = async (id, vs_currency = 'usd', days = 1, interval) => {
+    try {
+      return (await coingeckoApi.get(`coins/${id}/market_chart?vs_currency=${vs_currency}&days=${days}&interval=${interval}`)).data
+    } catch (err) {
+      throw err
+    }
+  }
 }

@@ -7,17 +7,106 @@ import twitterIcon from '../../images/icons/twitter.svg'
 import redditIcon from '../../images/icons/reddit.svg'
 import {Link} from "react-router-dom";
 import CurrencyController from "../../controllers/currency.controller";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import {Line} from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+
+const CHART_TYPES = [
+  {legend: 'Price', value: 'prices'},
+  {legend: 'Market Cap', value: 'market_caps'},
+  {legend: 'Total volume', value: 'total_volumes'},
+]
+
+
+const CHART_DAYS = [
+  {legend: '24h', value: 1},
+  {legend: '7d', value: 7},
+  {legend: '14d', value: 14},
+  {legend: '30d', value: 30},
+  {legend: '90d', value: 90},
+  {legend: '180d', value: 180},
+  {legend: '1y', value: 365},
+]
 
 const CoinInfo = (props) => {
-  const [coin, setCoin] = useState(null)
+  const [coin, setCoin] = useState(null);
+  const [historicalMarketData, setHistoricalMarketData] = useState(null);
+  const [chartType, setChartType] = useState(CHART_TYPES[0].value);
+  const [chartDays, setChartDays] = useState(1);
+
   useEffect(() => {
     CurrencyController.getCoinById(props.match.params.id).then(res => {
       setCoin(res)
-    })
-    // eslint-disable-next-line
-  }, [])
+    });
+  }, [props.match.params.id])
 
-  console.log(coin)
+  useEffect(() => {
+    CurrencyController.getDataById(props.match.params.id, chartType, chartDays).then(data => {
+      setHistoricalMarketData(data)
+    })
+  }, [props.match.params.id, chartType, chartDays])
+
+  const options = {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        display: false
+      },
+    },
+    scales: {
+      y: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+        ticks: {
+          callback: function (value, index) {
+            if (index !== 0) {
+              if (chartType === 'prices' || chartType === 'market_caps') {
+                return `$${separateBy(value, ',')}`
+              }
+              return separateBy(value, ',');
+            }
+          }
+        }
+      },
+      x: {
+        ticks: {
+          callback: function (value, index) {
+            if (!(value % 20) && index !== 0) {
+              if(chartDays < 14) {
+                return this.getLabelForValue(value).match(/[0-9]{2}:[0-9]{2}/);
+              }
+              return this.getLabelForValue(value).match(/[a-zA-Z]{3} [0-9]{2}/);
+            }
+          }
+        }
+      }
+    },
+  };
+
 
   const capitalChange24h = coin?.market_data.market_cap_change_percentage_24h?.toFixed(1);
   const priceInBtc24h = coin?.market_data.price_change_percentage_24h_in_currency?.btc.toFixed(1);
@@ -156,7 +245,7 @@ const CoinInfo = (props) => {
                 <span>Explorers</span>
                 <div className="coin-info__contact-tab">
                   {coin.links.blockchain_site.map(el => el ?
-                    <a className='coin-info__link' href={el}>{el.split('/')[2]}</a> : null)}
+                    <a key={el} className='coin-info__link' href={el}>{el.split('/')[2]}</a> : null)}
                 </div>
               </div>
               <div className="coin-info__media-item">
@@ -191,14 +280,43 @@ const CoinInfo = (props) => {
               <div className="coin-info__media-item">
                 <span>Tags</span>
                 <div className="coin-info__contact-tab">
-                  {coin.categories.map(cat => {
-                    return <div className='coin-info__link'>{cat}</div>
-                  })}
+                  {coin.categories.map(category => <div key={category} className='coin-info__link'>{category}</div>)}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {historicalMarketData ?
+          <div className='coin__chart chart'>
+            <div className="chart__title">{coin.name} to USD Chart</div>
+            <div className="chart__flex">
+              <div className="chart__types">
+                {CHART_TYPES.map(type =>
+                  <button className={`chart__type ${chartType === type.value ? 'active' : ''}`}
+                          onClick={() => setChartType(type.value)}
+                          key={type.value}
+                  >
+                    {type.legend}
+                  </button>
+                )}
+              </div>
+              <div className="chart__days">
+                <div className="chart__types">
+                  {CHART_DAYS.map(day =>
+                    <button className={`chart__type ${chartDays === day.value ? 'active' : ''}`}
+                            onClick={() => setChartDays(day.value)}
+                            key={day.value}
+                    >
+                      {day.legend}
+                    </button>)}
+                </div>
+              </div>
+            </div>
+            <Line options={options} data={historicalMarketData}/>
+          </div>
+          :
+          null
+        }
       </div>
     </div>
     : null

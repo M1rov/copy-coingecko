@@ -116,57 +116,96 @@
     }
 
   }
-}
 
-.coin-info {
-  max-width: 400px;
-  font-size: 0.75em;
-  &__header {
-    font-weight: 600;
-    color: #3e3e3e;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-
-  &__media {
-    &-item {
-      display: flex;
-      margin: 10px 0;
-      span {
-        color: gray;
-        line-height: 24px;
-        min-width: 120px;
-      }
-    }
-  }
-
-  &__contact-tab {
-    .coin-info__link {
-      font-size: inherit;
-      display: inline-flex;
-      align-items: center;
-      padding: 5px;
-      background: rgba(146, 146, 146, 0.4);
-      border-radius: 5px;
-      margin-left: 10px;
+  &-info {
+    max-width: 400px;
+    font-size: 0.75em;
+    &__header {
+      font-weight: 600;
+      color: #3e3e3e;
+      font-size: 1.5em;
       margin-bottom: 10px;
+    }
 
-      img {
-        width: 20px;
-        margin-right: 5px;
+    &__media {
+      &-item {
+        display: flex;
+        margin: 10px 0;
+        span {
+          color: gray;
+          line-height: 24px;
+          min-width: 120px;
+        }
       }
     }
 
-    a.coin-info__link {
-      &:hover {
-        color: limegreen;
-        background: #929292;
-        box-shadow: 0 0 5px rgba(128, 128, 128, 0.4);
+    &__contact-tab {
+      .coin-info__link {
+        font-size: inherit;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px;
+        background: rgba(146, 146, 146, 0.4);
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+        img {
+          width: 20px;
+          margin-right: 5px;
+        }
+      }
+
+      a.coin-info__link {
+        &:hover {
+          color: limegreen;
+          background: #929292;
+          box-shadow: 0 0 5px rgba(128, 128, 128, 0.4);
+        }
+      }
+    }
+
+  }
+
+  .chart {
+    &__title {
+      font-weight: 600;
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+
+    &__flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    $btnBorderColor: rgba(77, 77, 77, 0.4);
+
+    &__types {
+      color: #464646;
+      box-shadow: 0 0 3px rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid $btnBorderColor;
+    }
+
+    &__type {
+      padding: 5px 20px;
+      color: inherit;
+      border-right: 1px solid $btnBorderColor;
+      &:last-child {
+        border: none
+      }
+
+      &.active {
+        background: rgba(119, 119, 119, 0.3);
       }
     }
   }
-
 }
+
+
 
 .text-green, .text-red {
   &::before {
