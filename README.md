@@ -1,3 +1,9 @@
 # Copy Coingecko
 
-<img src="https://i.yapx.ru/PeQd9.png"/>
+The React App, which represent the copy of <a href="https://www.coingecko.com">coingecko</a>.<br>
+It helps to follow cryptocurrency & to find all needed information about the certain coin.<br>
+Also, you can sort cryptocoins by different parameters.
+<hr>
+<img src="preview.gif"/>
+<hr>
+Demo: <a href="https://adoring-thompson-88153a.netlify.app/">Coingecko Copy</a>
